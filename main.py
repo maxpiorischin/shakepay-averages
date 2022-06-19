@@ -5,19 +5,32 @@ from numpy import nan
 app = Flask(__name__)
 
 
+# def calc(df, currency):
+#     df = df.fillna(0)
+#     weightsum = 0
+#     pricebyweight = 0
+#     for index, row in df.iterrows():
+#         if row["Credit Currency"] == currency:
+#             weightsum += row["Amount Debited"]
+#             pricebyweight += (row["Amount Debited"] * row["Buy / Sell Rate"])
+#         # if row["Debit Currency"] == currency:
+#         #     weightsum -= row["Amount Credited"]
+#         #     pricebyweight -= (row["Amount Credited"] * row["Buy / Sell Rate"])
+
+#     return pricebyweight / weightsum
 def calc(df, currency):
     df = df.fillna(0)
-    weightsum = 0
-    pricebyweight = 0
+    amount_invested = 0
+    cryptobought = 0
     for index, row in df.iterrows():
         if row["Credit Currency"] == currency:
-            weightsum += row["Amount Debited"]
-            pricebyweight += (row["Amount Debited"] * row["Buy / Sell Rate"])
-        # if row["Debit Currency"] == currency:
-        #     weightsum -= row["Amount Credited"]
-        #     pricebyweight -= (row["Amount Credited"] * row["Buy / Sell Rate"])
+            amount_invested += row["Amount Debited"]
+            cryptobought += row["Amount Credited"]
+        if row["Debit Currency"] == currency:
+            amount_invested -= row["Amount Credited"]
+            cryptobought -= row["Amount Debited"]
 
-    return pricebyweight / weightsum
+    return amount_invested / cryptobought
 
 
 @app.route("/", methods=["POST", "GET"])
