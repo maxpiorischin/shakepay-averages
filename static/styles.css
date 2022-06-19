@@ -1,0 +1,18 @@
+* {
+margin: auto;
+}
+
+body {
+  margin: 5vh;
+}
+
+.error {
+   background-color: rgb(255, 109, 109);
+}
+
+p {
+  display: inline-block;
+}
+
+
+
