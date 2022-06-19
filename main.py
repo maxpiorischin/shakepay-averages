@@ -13,9 +13,9 @@ def calc(df, currency):
         if row["Credit Currency"] == currency:
             weightsum += row["Amount Debited"]
             pricebyweight += (row["Amount Debited"] * row["Buy / Sell Rate"])
-        # if row["Debit Currency"] == currency:
-        #     weightsum -= row["Amount Credited"]
-        #     pricebyweight -= (row["Amount Credited"] * row["Buy / Sell Rate"])
+        if row["Debit Currency"] == currency:
+            weightsum -= row["Amount Credited"]
+            pricebyweight -= (row["Amount Credited"] * row["Buy / Sell Rate"])
 
     return pricebyweight / weightsum
 
